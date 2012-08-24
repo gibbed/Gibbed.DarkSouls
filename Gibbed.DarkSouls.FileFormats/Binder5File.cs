@@ -101,9 +101,13 @@ namespace Gibbed.DarkSouls.FileFormats
                     var entry = new Binder.Entry();
                     entry.NameHash = input.ReadValueU32(endian);
                     entry.Size = input.ReadValueU32(endian);
-                    entry.Unknown8 = input.ReadValueU32(endian);
-                    entry.Offset = input.ReadValueU32(endian);
+                    entry.Offset = input.ReadValueS64(endian);
                     this.Entries.Add(entry);
+
+                    if (entry.Offset < 0)
+                    {
+                        throw new FormatException();
+                    }
                 }
             }
         }
