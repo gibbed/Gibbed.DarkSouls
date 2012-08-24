@@ -1,0 +1,27 @@
+<project>
+	<name>Dark Souls</name>
+	<dependencies>
+		<dependency>Shared</dependency>
+	</dependencies>
+	<list_location>Dark Souls</list_location>
+	<install_locations>
+		<install_location>
+			<action type="registryview" view="Registry64" hive="LocalMachine" subkey="SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX\Games\{1744E95A-53A5-9D5F-9935-A1CF739879A4}" value="AppExePath" />
+			<action type="directory_name" />
+		</install_location>
+		<install_location>
+			<action type="registryview" view="Registry32" hive="LocalMachine" subkey="SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX\Games\{1744E95A-53A5-9D5F-9935-A1CF739879A4}" value="AppExePath" />
+			<action type="directory_name" />
+		</install_location>
+		<install_location>
+			<action type="registryview" view="Registry32" hive="LocalMachine" subkey="SOFTWARE\NAMCO BANDAI GAMES\DARK SOULS" value="Install_Path" />
+		</install_location>
+		<install_location>
+			<action type="registry" key="HKEY_CURRENT_USER\Software\Valve\Steam" value="SteamPath" />
+			<action type="fix" />
+			<action type="combine">steamapps</action>
+			<action type="combine">common</action>
+			<action type="combine">Dark Souls Prepare to Die Edition</action>
+		</install_location>
+	</install_locations>
+</project>
