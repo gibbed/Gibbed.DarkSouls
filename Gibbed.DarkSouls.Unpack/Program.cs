@@ -167,13 +167,22 @@ namespace Gibbed.DarkSouls.Unpack
                         {
                             name = name.Substring(1);
                         }
+                    }
 
-                        var extension = Path.GetExtension(name);
-                        if (extension != null &&
-                            extension.EndsWith(".dcx") == true)
+                    if (uncompress == true &&
+                        entry.Size >= 92)
+                    {
+                        input.Seek(entry.Offset + 16, SeekOrigin.Begin);
+                        if (input.ReadValueU32(Endian.Big) == 0x44435800)
                         {
-                            name = name.Substring(0, name.Length - 4);
                             uncompressing = true;
+
+                            var extension = Path.GetExtension(name);
+                            if (extension != null &&
+                                extension.EndsWith(".dcx") == true)
+                            {
+                                name = name.Substring(0, name.Length - 4);
+                            }
                         }
                     }
 
