@@ -22,7 +22,6 @@
 
 using System;
 using System.IO;
-using System.Text;
 using Gibbed.IO;
 using ICSharpCode.SharpZipLib.Zip.Compression;
 using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
