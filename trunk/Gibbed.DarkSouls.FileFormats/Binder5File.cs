@@ -32,7 +32,7 @@ namespace Gibbed.DarkSouls.FileFormats
     {
         public const uint Signature = 0x42484435; // BHD5
 
-        public readonly List<Binder.Entry> Entries = new List<Binder.Entry>();
+        public readonly List<Binder5.Entry> Entries = new List<Binder5.Entry>();
 
         public void Deserialize(Stream input)
         {
@@ -98,7 +98,7 @@ namespace Gibbed.DarkSouls.FileFormats
 
                 for (uint i = 0; i < bucket.Item2; i++)
                 {
-                    var entry = new Binder.Entry();
+                    var entry = new Binder5.Entry();
                     entry.NameHash = input.ReadValueU32(endian);
                     entry.Size = input.ReadValueU32(endian);
                     entry.Offset = input.ReadValueS64(endian);

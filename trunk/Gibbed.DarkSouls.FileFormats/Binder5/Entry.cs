@@ -20,7 +20,7 @@
  *    distribution.
  */
 
-namespace Gibbed.DarkSouls.FileFormats.Binder
+namespace Gibbed.DarkSouls.FileFormats.Binder5
 {
     public class Entry
     {
