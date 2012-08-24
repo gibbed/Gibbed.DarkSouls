@@ -20,36 +20,11 @@
  *    distribution.
  */
 
-using System;
-
-namespace RebuildFileLists
+namespace Gibbed.DarkSouls.FileFormats
 {
-    internal class Breakdown
+    public enum CompressionScheme : uint
     {
-        public long Known;
-        public long Total;
-
-        public int Percent
-        {
-            get
-            {
-                if (this.Total == 0)
-                {
-                    return 0;
-                }
-
-                return (int)Math.Floor((
-                    (float)this.Known /
-                    this.Total) * 100.0);
-            }
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0}/{1} ({2}%)",
-                this.Known,
-                this.Total,
-                this.Percent);
-        }
+        Zlib = 0x44464C54,
+        Edge = 0x45444745,
     }
 }

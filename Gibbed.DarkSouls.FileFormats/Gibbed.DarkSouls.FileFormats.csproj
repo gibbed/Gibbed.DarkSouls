@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\other\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Binder5File.cs" />
     <Compile Include="Binder\Entry.cs" />
+    <Compile Include="CompressedFile.cs" />
+    <Compile Include="CompressionScheme.cs" />
     <Compile Include="ProjectHelpers.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
