@@ -37,11 +37,6 @@ namespace Gibbed.DarkSouls.FileFormats
 
         private void Deserialize(Stream input)
         {
-            if (input.ReadString(16, true, Encoding.ASCII) != "BDF307D7R6")
-            {
-                throw new FormatException();
-            }
-
             if (input.ReadValueU32(Endian.Big) != 0x44435800) // 'DCX\0'
             {
                 throw new FormatException();
