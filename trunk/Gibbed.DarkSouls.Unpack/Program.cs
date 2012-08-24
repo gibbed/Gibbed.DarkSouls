@@ -42,6 +42,7 @@ namespace Gibbed.DarkSouls.Unpack
             bool extractUnknowns = true;
             bool overwriteFiles = false;
             bool verbose = false;
+            bool uncompress = false;
 
             var options = new OptionSet()
             {
@@ -59,6 +60,11 @@ namespace Gibbed.DarkSouls.Unpack
                     "v|verbose",
                     "be verbose",
                     v => verbose = v != null
+                    },
+                {
+                    "u|uncompress",
+                    "uncompress DCX compressed files",
+                    v => uncompress = v != null
                     },
                 {
                     "h|help",
@@ -125,6 +131,8 @@ namespace Gibbed.DarkSouls.Unpack
 
                 foreach (var entry in bhd.Entries)
                 {
+                    bool uncompressing = false;
+
                     current++;
 
                     string name = hashes[entry.NameHash];
@@ -143,6 +151,8 @@ namespace Gibbed.DarkSouls.Unpack
                             int read = 0;
 
                             extension = "unknown";
+
+                            // TODO: fix me
                         }
 
                         name = entry.NameHash.ToString("X8");
@@ -157,10 +167,23 @@ namespace Gibbed.DarkSouls.Unpack
                         {
                             name = name.Substring(1);
                         }
+
+                        var extension = Path.GetExtension(name);
+                        if (extension != null &&
+                            extension.EndsWith(".dcx") == true)
+                        {
+                            name = name.Substring(0, name.Length - 4);
+                            uncompressing = true;
+                        }
                     }
 
                     var entryPath = Path.Combine(outputPath, name);
-                    Directory.CreateDirectory(Path.GetDirectoryName(entryPath));
+                    
+                    var parentPath = Path.GetDirectoryName(entryPath);
+                    if (parentPath != null)
+                    {
+                        Directory.CreateDirectory(parentPath);
+                    }
 
                     if (overwriteFiles == false &&
                         File.Exists(entryPath) == true)
@@ -180,8 +203,20 @@ namespace Gibbed.DarkSouls.Unpack
                     {
                         if (entry.Size > 0)
                         {
-                            input.Seek(entry.Offset, SeekOrigin.Begin);
-                            output.WriteFromStream(input, entry.Size);
+                            if (uncompress == true &&
+                                uncompressing == false)
+                            {
+                                input.Seek(entry.Offset, SeekOrigin.Begin);
+                                output.WriteFromStream(input, entry.Size);
+                            }
+                            else
+                            {
+                                input.Seek(entry.Offset, SeekOrigin.Begin);
+                                using (var temp = CompressedFile.Decompress(input))
+                                {
+                                    output.WriteFromStream(temp, temp.Length);
+                                }
+                            }
                         }
                     }
                 }

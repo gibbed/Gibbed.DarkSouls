@@ -116,7 +116,8 @@ namespace RebuildFileLists
                 Console.WriteLine("Could not detect install path.");
                 return;
             }
-            else if (listsPath == null)
+
+            if (listsPath == null)
             {
                 Console.WriteLine("Could not detect lists path.");
                 return;
@@ -185,7 +186,12 @@ namespace RebuildFileLists
 
                 names.Sort();
 
-                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                var parentPath = Path.GetDirectoryName(outputPath);
+                if (parentPath != null)
+                {
+                    Directory.CreateDirectory(parentPath);
+                }
+
                 using (var output = new StreamWriter(outputPath))
                 {
                     output.WriteLine("; {0}", localBreakdown);
