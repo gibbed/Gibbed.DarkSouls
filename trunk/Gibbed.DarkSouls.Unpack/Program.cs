@@ -170,9 +170,9 @@ namespace Gibbed.DarkSouls.Unpack
                     }
 
                     if (uncompress == true &&
-                        entry.Size >= 92)
+                        entry.Size >= 76)
                     {
-                        input.Seek(entry.Offset + 16, SeekOrigin.Begin);
+                        input.Seek(entry.Offset, SeekOrigin.Begin);
                         if (input.ReadValueU32(Endian.Big) == 0x44435800)
                         {
                             uncompressing = true;
