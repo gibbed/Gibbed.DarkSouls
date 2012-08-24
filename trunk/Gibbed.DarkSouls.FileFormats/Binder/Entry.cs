@@ -26,7 +26,6 @@ namespace Gibbed.DarkSouls.FileFormats.Binder
     {
         public uint NameHash;
         public uint Size;
-        public uint Unknown8;
-        public uint Offset;
+        public long Offset;
     }
 }
