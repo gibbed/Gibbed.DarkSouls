@@ -50,12 +50,12 @@ namespace Gibbed.DarkSouls.FileFormats
             }
 
             var unknown0C = input.ReadValueU32(Endian.Little);
-            if (unknown0C != 116 &&
-                unknown0C.Swap() != 116)
+            if (unknown0C != 0x54 && unknown0C.Swap() != 0x54 &&
+                unknown0C != 0x74 && unknown0C.Swap() != 0x74)
             {
                 throw new FormatException();
             }
-            var endian = unknown0C == 116 ? Endian.Little : Endian.Big;
+            var endian = unknown0C == 0x54 || unknown0C == 0x74 ? Endian.Little : Endian.Big;
 
             var entryCount = input.ReadValueU32(endian);
             this.DataOffset = input.ReadValueU32(endian);
