@@ -212,7 +212,7 @@ namespace Gibbed.DarkSouls.Unpack
                     {
                         if (entry.Size > 0)
                         {
-                            if (uncompress == true &&
+                            if (uncompress == false ||
                                 uncompressing == false)
                             {
                                 input.Seek(entry.Offset, SeekOrigin.Begin);
